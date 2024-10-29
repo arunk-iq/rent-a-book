@@ -5,9 +5,6 @@ Aa application for managing student book rental developed on Django
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Running Tests](#running-tests)
-- [Notes](#notes)
-- [License](#license)
 
 ## Installation
 
@@ -81,5 +78,13 @@ Aa application for managing student book rental developed on Django
 - User will be taken to landing page. From side menu select `Student list`
 - The system fetches list of students we have options to list all rentals and add rental against each student
 
-### New rental
-
+#### - New rental
+- Search book with name. This will call the OpenLibrary API and provide a list of all books matching the search.
+- Select one book.  Rented date will be automatically loaded with today's date. Return date will automatically be 1 month from current date
+- On submitting the rental will be recorded
+#### - Rental details
+- List all the rented books in a list
+- Option to update Return date is available inline.
+- On updating return date rental cost is automatically updated for months post 1 month with (number of pages / 100) dollars
+### Student Login
+- When student log in user will be provided a list of all books rented by him.
