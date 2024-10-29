@@ -1,0 +1,79 @@
+{%extends "base.html" %}
+{% load static %}
+
+{% block Content %}
+<div class="content-wrapper">
+  <div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">New Rental</h4>
+        <!-- <p class="card-description"> Basic form elements </p> -->
+        <form class="forms-sample" action="{% url 'save_rental' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="userId" value="{{user_id}}">
+          <div class="form-group">
+            <label for="returnDate">Return Date</label>
+            <input type="date" class="form-control" id="returnDate" name="returnDate" placeholder="dd/mm/yyyy">
+          </div>
+          <button type="submit" class="btn btn-primary me-2">Submit</button>
+          <button class="btn btn-light">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}
+{%block scripts%}
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#bookList').hide();
+      const today = new Date();
+    
+      // Format date as YYYY-MM-DD
+      var formattedDate = today.toISOString().split('T')[0];
+      
+      // Set the date input's value to today's date
+      $('#rentedDate').val(formattedDate);
+      today.setMonth(today.getMonth() + 1);
+      formattedDate = today.toISOString().split('T')[0];
+      
+      // Set the date input's value to today's date
+      $('#returnDate').val(formattedDate);
+      $('#searchBookName').on('click', function() {
+          const bookName = $('#bookName').val();
+          // Perform AJAX request
+          $.ajax({
+              url: "{% url 'search_book' %}",
+              data: {
+                'book_name': bookName,
+                'csrfmiddlewaretoken':$('input[name="csrfmiddlewaretoken"]').val()
+              },
+              method:'post',
+              dataType: 'json',
+              success: function(data) {
+                  // Clear previous results
+                  // Display new results
+                  $('#searchResults').empty();
+                  if (data.books.length > 0) {
+                    data.books.forEach(function(d, i){
+                      table_row = `<tr>
+                        <td><input type='radio' name='selectedBook' value='` + JSON.stringify(d) + `'' /></td>
+                        <td>`+ d.title +`</td>
+                        <td>`+ d.author_name.join(', ')+`</td>
+                      </tr>`;
+                      $('#searchResults').append(table_row)
+                    });
+                      
+                  } else {
+                      table_row = `<tr>
+                        <td colspan='3' class="text-center">No Books found</td>
+                      </tr>`;
+                      $('#searchResults').append(table_row)
+                  }
+                  $('#bookList').show();
+              }
+          });
+      });
+  });
+</script>
+{%endblock%}

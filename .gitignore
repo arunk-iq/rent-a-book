@@ -1,0 +1,56 @@
+# Ignore Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignore environment settings
+.env
+*.env
+
+# Ignore virtual environment folders
+venv/
+env/
+.virtualenv/
+
+# Ignore Django migrations
+*/migrations/*.py
+*/migrations/*.pyc
+
+# Ignore database files
+db.sqlite3
+db.sqlite3-journal
+
+# Ignore Django cache and other files
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.sqlite3-journal
+*.swp
+*.swo
+*.pid
+*.seed
+*.env
+*.mo
+
+# Ignore IDE and editor configuration files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore media and static files (if generated locally)
+media/
+staticfiles/
+
+# Ignore compiled code
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Ignore macOS system files
+.DS_Store
